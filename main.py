@@ -199,3 +199,52 @@ async def generate_brief(data: dict):
     db.collection("briefs").document(zone).set(brief_data)
 
     return brief_data
+@app.get("/signals/{zone}")
+async def get_signals(zone: str):
+    signals = {
+        "Whitefield": {
+            "weather_score": 70,
+            "employment_stress": 65,
+            "hospital_trend": 80,
+            "sentiment_score": 55
+        },
+        "KR Puram": {
+            "weather_score": 60,
+            "employment_stress": 75,
+            "hospital_trend": 65,
+            "sentiment_score": 50
+        },
+        "Dharavi": {
+            "weather_score": 85,
+            "employment_stress": 90,
+            "hospital_trend": 75,
+            "sentiment_score": 40
+        },
+        "Hebbal": {
+            "weather_score": 50,
+            "employment_stress": 55,
+            "hospital_trend": 60,
+            "sentiment_score": 70
+        },
+        "Yelahanka": {
+            "weather_score": 45,
+            "employment_stress": 50,
+            "hospital_trend": 55,
+            "sentiment_score": 75
+        },
+        "Jayanagar": {
+            "weather_score": 40,
+            "employment_stress": 45,
+            "hospital_trend": 50,
+            "sentiment_score": 80
+        }
+    }
+
+    zone_data = signals.get(zone, {
+        "weather_score": 50,
+        "employment_stress": 50,
+        "hospital_trend": 50,
+        "sentiment_score": 50
+    })
+
+    return {"zone": zone, "signals": zone_data}
