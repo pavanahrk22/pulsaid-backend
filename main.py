@@ -168,3 +168,34 @@ def get_flagged_zones():
         return zones
     except Exception as e:
         return CACHE
+
+        @app.post("/brief")
+async def generate_brief(data: dict):
+    zone = data.get("zone", "Unknown")
+    risk_score = data.get("risk_score", 0)
+    risk_type = data.get("risk_type", "general")
+
+    prompt = f"""
+    You are an emergency response AI. Generate a concise NGO action brief.
+    Zone: {zone}
+    Risk Score: {risk_score}/100
+    Risk Type: {risk_type}
+
+    Respond ONLY with valid JSON in this exact format:
+    {{
+        "zone": "{zone}",
+        "risk_type": "string",
+        "volunteers_needed": number,
+        "eta_hours": number,
+        "action": "one sentence action instruction"
+    }}
+    """
+
+    model = genai.GenerativeModel("gemini-pro")
+    response = model.generate_content(prompt)
+    brief_data = json.loads(response.text)
+
+    # Save to Firestore
+    db.collection("briefs").document(zone).set(brief_data)
+
+    return brief_data
