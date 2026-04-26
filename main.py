@@ -169,7 +169,7 @@ def get_flagged_zones():
     except Exception as e:
         return CACHE
 
-        @app.post("/brief")
+@app.post("/brief")
 async def generate_brief(data: dict):
     zone = data.get("zone", "Unknown")
     risk_score = data.get("risk_score", 0)
