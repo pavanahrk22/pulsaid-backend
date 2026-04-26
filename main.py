@@ -13,7 +13,9 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-2.0-flash")
 
-cred = credentials.Certificate("firebase-key.json")
+import json as json_module
+firebase_key_json = json_module.loads(os.getenv("FIREBASE_KEY", "{}"))
+cred = credentials.Certificate(firebase_key_json)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
