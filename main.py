@@ -111,4 +111,31 @@ def get_signals(zone_name: str):
 @app.get("/history")
 def get_history():
     return [
-        {"event": "Bengaluru Floods 2023", "date": "October 2023", "zone": "Whitefield", "what_happened": "Heavy rainfall caused severe waterlogging affecting 50,000 residents", "signals_before": {"wea
+        {
+            "event": "Bengaluru Floods 2023",
+            "date": "October 2023",
+            "zone": "Whitefield",
+            "what_happened": "Heavy rainfall caused waterlogging affecting 50,000 residents",
+            "signals_before": {"weather": 85, "employment": 60, "hospital": 45, "sentiment": 72},
+            "days_early_detected": 11,
+            "lives_impacted": 50000
+        },
+        {
+            "event": "KR Puram Layoffs 2023",
+            "date": "March 2023",
+            "zone": "KR Puram",
+            "what_happened": "Mass layoffs triggered food insecurity for 12,000 families",
+            "signals_before": {"weather": 40, "employment": 88, "hospital": 55, "sentiment": 78},
+            "days_early_detected": 14,
+            "lives_impacted": 12000
+        },
+        {
+            "event": "Yelahanka Drought 2022",
+            "date": "June 2022",
+            "zone": "Yelahanka",
+            "what_happened": "Dry spell caused water scarcity for 8,000 families",
+            "signals_before": {"weather": 90, "employment": 75, "hospital": 60, "sentiment": 82},
+            "days_early_detected": 18,
+            "lives_impacted": 8000
+        }
+    ]
